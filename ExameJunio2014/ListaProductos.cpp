@@ -23,7 +23,7 @@ void muestra(const tListaProd & listaProductos){
 
 double totalVentas(const tListaProd & listaProductos){
 	double total = 0;
-	
+
 	for(int i = 0; i < listaProductos.contador; i++){
 		total += totalVenta(listaProductos.productos[i]);
 	}

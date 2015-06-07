@@ -7,16 +7,19 @@ using namespace std;
 #include "ListaClientes.h"
 
 void inicializar(tListaClientes & listaClientes){
+	for(int i = 0; i < listaClientes.contador; i++)
+	listaClientes.clientes[i] = nullptr;
+
 	listaClientes.contador = 0;
 }
 
 bool encuentra(const tListaClientes & listaClientes, string NIF, int & pos){
 	int ini = 0, fin = listaClientes.contador-1, mitad;
 	bool encontrado = false;
-	
+
 	while (ini <= fin && !encontrado){
 		mitad = ( ini + fin )/2;
-	
+
 		if(NIF < listaClientes.clientes[mitad]-> NIF){
 			fin = mitad-1;
 		}
@@ -29,7 +32,7 @@ bool encuentra(const tListaClientes & listaClientes, string NIF, int & pos){
 	}
 	if(encontrado) pos = mitad;
 	else pos= ini;
-	
+
 	return encontrado;
 }
 
@@ -42,23 +45,26 @@ double totalVentas(const tListaClientes & listaClientes){
 }
 
 
-bool insertaCliente(tListaClientes & listaClientes, string ID, const tProducto & producto){
+bool insertaCliente(tListaClientes & listaClientes, string NIF, const tProducto & producto){
 	bool ok = false;
 	int pos;
 	if(listaClientes.contador < MAXCLIENTES){
-	
-		if(!encuentra(listaClientes, ID, pos)){
-		listaClientes.clientes[listaClientes.contador] = new tCliente;
-		inicializar(listaClientes.clientes[listaClientes.contador]->listaProductos);
 
-		for(int i = listaClientes.contador; i > pos; i--){
+		if(!encuentra(listaClientes, NIF, pos)){
+
+			tCliente cliente;
+			cliente.NIF = NIF;
+			inicializar(cliente.listaProductos);							//Se genera un cliente
+
+		for(int i = listaClientes.contador; i > pos; i--){				//Se hace hueco en la lista desde pos
 			listaClientes.clientes[i] = listaClientes.clientes[i-1];
 		}
-		
-		listaClientes.clientes[pos] -> NIF = ID;
-		listaClientes.clientes[pos] -> listaProductos.productos[listaClientes.clientes[pos]->listaProductos.contador] = producto;
+
+		listaClientes.clientes[pos] = new tCliente (cliente);										//Se inclulle al cliente generado en la poscion pos
+
+		listaClientes.clientes[pos] -> listaProductos.productos[0] = producto; 	//se inclulle el producto en la lista de productos del cliente;
 		ok =true;
-		}	
+		}
 	}
 	else{
 		cout << "Error lista de clientes llena" << endl;
@@ -71,7 +77,7 @@ void carga(tListaClientes & listaClientes, ifstream& archivo){
 	int pos;
 	string NIF;
 	tProducto producto;
-	
+
 	inicializar(listaClientes);
 
 	archivo >> NIF;
@@ -79,12 +85,12 @@ void carga(tListaClientes & listaClientes, ifstream& archivo){
 	archivo >> producto.codigo;
 	archivo >> producto.precio;
 	archivo >> producto.unidades;
-	
+
 	if(!encuentra(listaClientes, NIF, pos))
 			insertaCliente(listaClientes, NIF, producto);
 	else
 		insertaProd(listaClientes.clientes[pos]->listaProductos, producto);
-		
+
 	listaClientes.contador++;
 
 	archivo >> NIF;
@@ -98,7 +104,8 @@ void muestra(const tListaClientes & listaClientes){
 		cout << "Cliente: " << listaClientes.clientes[i]->NIF;
 		muestra(listaClientes.clientes[i]->listaProductos);
 		cout <<"---------------------------------" << endl;
-			system("pause");
+		
+			system("pause");	//Se usa para comprobar usuario a usuario la carga, puede borrarse (ha de borrarse antes de entregar)
 		}
 	cout << "Ventas totales: " << totalVentas(listaClientes) << endl;
 	system("pause");
