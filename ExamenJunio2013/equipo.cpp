@@ -20,9 +20,8 @@ void actualizarPrecio(tEquipo & equipo, double precio){
 
 void muestraEquipo(const tEquipo & equipo){
 	cout << equipo.codigo << endl;
-	cout << "/t";
 	mostrarListaComponentes(equipo.perifericos);
-
+		cout << "Precio del equipo: " <<precioEquipo(equipo) << "Eurs" << endl << endl;
 }
 
 double precioEquipo(const tEquipo & equipo){

@@ -26,11 +26,12 @@ bool cargaEquipos(tListaEquipos & listaEquipos){
 			archivo >> componente.codigo;
 			archivo >> componente.precio;
 			getline(archivo, componente.nombre);
+
+
 			if(!buscaEquipo(listaEquipos, codigo, pos)){
+
 				insertaComponente(equipo, componente);
 				insertaEquipo(listaEquipos, equipo, pos);
-
-
 			}
 			else{
 
@@ -38,8 +39,8 @@ bool cargaEquipos(tListaEquipos & listaEquipos){
 			}
 
 
-
 		archivo >> codigo;
+
 		}
 		archivo.close();
 		ok = true;
@@ -57,10 +58,10 @@ bool buscaEquipo(const tListaEquipos & listaEquipos, string codigo, int & pos){
 	while(ini <= fin && !encontrado){
 			mitad = (ini + fin) / 2;
 		if(codigo < listaEquipos.equipos[mitad].codigo){
-			mitad = mitad - 1;
+			fin = mitad - 1;
 		}
 		else if(listaEquipos.equipos[mitad].codigo < codigo){
-			mitad = mitad + 1;
+			ini = mitad + 1;
 		}
 		else encontrado = true;
 	}
@@ -96,11 +97,15 @@ void muestraEquipos(const tListaEquipos & listaEquipos){
 	}
 }
 
-/**
-* aplica a todos los componentes el porcentaje de incremento que
-* se proporciona, actualizando los precios de los equipos.
-*/
+
 void actualiza(tListaEquipos & listaEquipos, double porcentaje){
+	double precioOriginal;
+	for(int i = 0; i < listaEquipos.contador; i++){
+		for(int j = 0; j< listaEquipos.equipos[i].perifericos.contador; j++){
+			precioOriginal = listaEquipos.equipos[i].perifericos.componentes[j].precio;
+			listaEquipos.equipos[i].perifericos.componentes[j].precio = (precioOriginal + ((precioOriginal*porcentaje)/100));
+		}
+	}
 }
 
 void destruir(tListaEquipos & listaEquipos){

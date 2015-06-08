@@ -6,5 +6,5 @@ double masIva (double precio){
 }
 
 void mostrarComponente(const tComponente & componente){
-  cout << componente.codigo << " " << componente.nombre << " - " << masIva(componente.precio) << " Eur" << endl;
+  cout << "\t" << componente.codigo << " " << componente.nombre << " - " << masIva(componente.precio) << " Eur" << endl;
 }
