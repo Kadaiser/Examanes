@@ -92,7 +92,7 @@ void carga(tListaClientes & listaClientes, ifstream& archivo){
 
 void muestra(const tListaClientes & listaClientes){
 	for(int i = 0; i < listaClientes.contador; i++){
-		cout << "Cliente: " << listaClientes.clientes[i]->NIF;
+		cout << "Cliente: " << listaClientes.clientes[i]->NIF << endl;
 		muestra(listaClientes.clientes[i]->listaProductos);
 		cout <<"---------------------------------" << endl;
 

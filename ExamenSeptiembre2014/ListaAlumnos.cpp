@@ -71,7 +71,9 @@ void insertaAlumno(tListaAlumnos & listaAlumnos, string NIF, const tExamen & exa
 			for(int i = listaAlumnos.contador; i > pos; i--){
 				listaAlumnos.alumnos[i] = listaAlumnos.alumnos[i - 1];
 			}
+
 			listaAlumnos.alumnos[pos] = new tAlumno(alumno);
+
 			listaAlumnos.contador++;
 		}
 	else
