@@ -11,16 +11,18 @@ typedef struct{
 
 
 /**
-* dado un equipo y un componente, añade éste último a
+* dado un equipo y un componente, aï¿½ade ï¿½ste ï¿½ltimo a
 * la lista de componentes del equipo y actualiza el precio del equipo.
 */
 bool insertaComponente(tEquipo & equipo, const tComponente & componente);
 
+void actualizarPrecio(tEquipo & equipo, double precio);
+
 /**
-* muestra la información de un equipo con este formato
+* muestra la informaciï¿½n de un equipo con este formato
 */
 void muestraEquipo(const tEquipo & equipo);
 
-
+double precioEquipo(const tEquipo & equipo);
 
 #endif

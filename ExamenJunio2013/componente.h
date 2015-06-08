@@ -13,4 +13,8 @@ typedef struct{
 	string codigo;
 }tComponente;
 
+double masIva (double precio);
+
+void mostrarComponente(const tComponente & componente);
+
 #endif

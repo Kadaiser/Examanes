@@ -4,41 +4,96 @@
 void inicializar(tListaEquipos & listaEquipos){
 listaEquipos.contador = 0;
 }
-/**
-* Carga la información del archivo equipos.txt; para cada
-* línea localiza el código de equipo en la lista (si no existe, lo inserta) y añade un
-* componente en su lista de componentes con el código, precio y nombre; y
-* actualiza el precio del equipo. Devuelve la Devuelve la lista con los datos leídos, o vacía si el
-* archivo no existe.
-*/
+
+
 bool cargaEquipos(tListaEquipos & listaEquipos){
 	bool ok = false;
+	int pos;
+	ifstream archivo;
+	string codigo;
+
+	archivo.open(FICHERO);
+
+	if(archivo.is_open()){
+		archivo >> codigo;
+		while(codigo != CENTINELA){
+
+			tEquipo equipo;
+			equipo.codigo = codigo;
+			inicializar(equipo.perifericos);
+
+			tComponente componente;
+			archivo >> componente.codigo;
+			archivo >> componente.precio;
+			getline(archivo, componente.nombre);
+			if(!buscaEquipo(listaEquipos, codigo, pos)){
+				insertaComponente(equipo, componente);
+				insertaEquipo(listaEquipos, equipo, pos);
+
+
+			}
+			else{
+
+				insertaComponente(listaEquipos.equipos[pos], componente);
+			}
+
+
+
+		archivo >> codigo;
+		}
+		archivo.close();
+		ok = true;
+	}
+	else
+		cout << "Error al abrir el fichero" << endl;
 	return ok;
 }
 
-/**
-* dada una lista ordenada de equipos y un código, devuelve la
-* posición (índice) para ese código en la lista; y si se ha encontrado o no un
-* equipo con ese código.
-*/
 
 bool buscaEquipo(const tListaEquipos & listaEquipos, string codigo, int & pos){
-	bool ok = false;
-	return ok;
+	int ini = 0, fin = listaEquipos.contador -1, mitad;
+	bool encontrado = false;
+
+	while(ini <= fin && !encontrado){
+			mitad = (ini + fin) / 2;
+		if(codigo < listaEquipos.equipos[mitad].codigo){
+			mitad = mitad - 1;
+		}
+		else if(listaEquipos.equipos[mitad].codigo < codigo){
+			mitad = mitad + 1;
+		}
+		else encontrado = true;
+	}
+	if(encontrado) pos = mitad;
+	else pos = ini;
+	return encontrado;
 }
-/**
-* dada una lista de equipos y un equipo, añade éste a la lista.
-* La lista debe seguir ordenada por código.
-*/
-bool insertaEquipo(tListaEquipos & listaEquipos, const tEquipo & equipo){
+
+
+bool insertaEquipo(tListaEquipos & listaEquipos, const tEquipo & equipo, int pos){
 	bool ok = false;
+	if(listaEquipos.contador < MAXEQUIPOS){
+		for(int i= listaEquipos.contador; i > pos; i--){
+			listaEquipos.equipos[i] = listaEquipos.equipos[i -1];
+		}
+
+		listaEquipos.equipos[pos]= equipo;
+		listaEquipos.contador++;
+		ok = true;
+	}
+	else{
+		cout << "La lista de equipos esta llena" << endl;
+	}
+
 	return ok;
 }
 
-/**
-*
-*/
+
 void muestraEquipos(const tListaEquipos & listaEquipos){
+	for(int i = 0; i < listaEquipos.contador; i++){
+		muestraEquipo(listaEquipos.equipos[i]);
+		precioEquipo(listaEquipos.equipos[i]);
+	}
 }
 
 /**
@@ -50,6 +105,6 @@ void actualiza(tListaEquipos & listaEquipos, double porcentaje){
 
 void destruir(tListaEquipos & listaEquipos){
 	for (int i = 0; i < listaEquipos.contador; i++){
-	destruir(listaEquipos.equipos[i].perifericos.componentes);
+	destruye(listaEquipos.equipos[i].perifericos);
 	}
 }

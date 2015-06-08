@@ -5,6 +5,7 @@
 
 const string FICHERO = "equipos.txt";
 const int MAXEQUIPOS = 300;
+const string CENTINELA = "X";
 
 typedef struct{
 	tEquipo equipos[MAXEQUIPOS];
@@ -13,27 +14,27 @@ typedef struct{
 
 
 /**
-* Carga la información del archivo equipos.txt; para cada
-* línea localiza el código de equipo en la lista (si no existe, lo inserta) y añade un
-* componente en su lista de componentes con el código, precio y nombre; y
-* actualiza el precio del equipo. Devuelve la Devuelve la lista con los datos leídos, o vacía si el
+* Carga la informaciï¿½n del archivo equipos.txt; para cada
+* lï¿½nea localiza el cï¿½digo de equipo en la lista (si no existe, lo inserta) y aï¿½ade un
+* componente en su lista de componentes con el cï¿½digo, precio y nombre; y
+* actualiza el precio del equipo. Devuelve la Devuelve la lista con los datos leï¿½dos, o vacï¿½a si el
 * archivo no existe.
 */
 bool cargaEquipos(tListaEquipos & listaEquipos);
 
 /**
-* dada una lista ordenada de equipos y un código, devuelve la
-* posición (índice) para ese código en la lista; y si se ha encontrado o no un
-* equipo con ese código.
+* dada una lista ordenada de equipos y un cï¿½digo, devuelve la
+* posiciï¿½n (ï¿½ndice) para ese cï¿½digo en la lista; y si se ha encontrado o no un
+* equipo con ese cï¿½digo.
 */
 
 bool buscaEquipo(const tListaEquipos & listaEquipos, string codigo, int & pos);
 
 /**
-* dada una lista de equipos y un equipo, añade éste a la lista.
-* La lista debe seguir ordenada por código.
+* dada una lista de equipos y un equipo, aï¿½ade ï¿½ste a la lista.
+* La lista debe seguir ordenada por cï¿½digo.
 */
-bool insertaEquipo(tListaEquipos & listaEquipos, const tEquipo & equipo);
+bool insertaEquipo(tListaEquipos & listaEquipos, const tEquipo & equipo, int pos);
 
 /**
 *
@@ -48,4 +49,5 @@ void actualiza(tListaEquipos & listaEquipos, double porcentaje);
 
 
 void destruir(tListaEquipos & listaEquipos);
+
 #endif

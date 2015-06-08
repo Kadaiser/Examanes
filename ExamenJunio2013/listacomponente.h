@@ -12,6 +12,10 @@ typedef struct{
 
 void inicializar(tListaComponentes & listaComponentes);
 
-void destruir(tListaComponentes & listaComponentes);
+void destruye(tListaComponentes & listaComponentes);
+
+void mostrarListaComponentes(const tListaComponentes & listaComponentes);
+
+double totalPrecioComponentes(const tListaComponentes & listaComponentes);
 
 #endif
