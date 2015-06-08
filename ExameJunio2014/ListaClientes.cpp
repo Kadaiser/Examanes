@@ -2,7 +2,7 @@
 
 void inicializar(tListaClientes & listaClientes){
 	for(int i = 0; i < MAXCLIENTES; i++)
-	listaClientes.clientes[i] = new tCliente;
+	listaClientes.clientes[i] = nullptr;
 
 	listaClientes.contador = 0;
 }
