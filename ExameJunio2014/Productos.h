@@ -1,8 +1,8 @@
 #ifndef PRODUCTOS_H
 #define	PRODUCTOS_H
 
-#include<iostream>
 #include<fstream>
+#include<iostream>
 #include<string>
 
 using namespace std;
@@ -15,8 +15,8 @@ int unidades;
 }tProducto;
 
 /**
-* Dado un producto muestra su información en la pantalla 
-* con el siguiente formato (código – unidades x precio = total)
+* Dado un producto muestra su informaciï¿½n en la pantalla
+* con el siguiente formato (cï¿½digo ï¿½ unidades x precio = total)
 */
 void muestra(const tProducto & producto);
 

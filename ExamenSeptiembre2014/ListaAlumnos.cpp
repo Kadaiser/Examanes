@@ -2,30 +2,29 @@
 #include "ListaAlumnos.h"
 
 void inicializar(tListaAlumnos & listaAlumnos){
-	for(int i = 0; i < MAXALUMNOS; i++){
+	for(int i = 0; i < MAXALUMNOS; i++)
 		listaAlumnos.alumnos[i] = new tAlumno;
-	}
 	listaAlumnos.contador = 0;
 }
 
 
 
 void totalEstadisticas(const tListaAlumnos & listaAlumnos, tArrayCalificacionesAlumnos & arrayCalificacionesAlumnos){
-	
+
 	arrayCalificacionesAlumnos[5] = {0}; //inicializar el array
-	
+
 }
 
 
 void muestra(const tListaAlumnos & listaAlumnos){
 	tArrayCalificacionesAlumnos arrayCalificacionesAlumnos;
-	
+
 	for(int i = 0; i < listaAlumnos.contador; i++){
 		cout << "----------------------------------------" << endl;
 		cout << "Alumno: " << listaAlumnos.alumnos[i] ->NIF << endl;
 		muestra(listaAlumnos.alumnos[i] -> listaExamenes);
 	}
-	
+
 	cout << "----------------------------------------" << endl;
 	totalEstadisticas(listaAlumnos, arrayCalificacionesAlumnos);
 	cout << "Total : ";
@@ -36,10 +35,10 @@ void muestra(const tListaAlumnos & listaAlumnos){
 bool busca(const tListaAlumnos & listaAlumnos, string NIF, int & pos){
 	int fin = listaAlumnos.contador - 1, ini = 0, mitad;
 	bool encontrado = false;
-	
+
 	while(!encontrado && fin <= ini){
 		mitad = (ini + fin) / 2;
-		
+
 		if(NIF < listaAlumnos.alumnos[mitad]-> NIF){
 			fin = mitad - 1;
 		}
@@ -51,7 +50,7 @@ bool busca(const tListaAlumnos & listaAlumnos, string NIF, int & pos){
 	}
 	if(encontrado) pos = mitad;
 	else pos = ini;
-	
+
 	return encontrado;
 }
 
@@ -66,9 +65,9 @@ void creaAlumno(string NIF, tExamen examen, tAlumno &alumno){
 void insertaAlumno(tListaAlumnos & listaAlumnos, string NIF, const tExamen & examen, int pos){
 	if(listaAlumnos.contador < MAXALUMNOS){
 		tAlumno alumno;
-		
+
 		creaAlumno(NIF,examen,alumno);
-			
+
 			for(int i = listaAlumnos.contador; i > pos; i--){
 				listaAlumnos.alumnos[i] = listaAlumnos.alumnos[i - 1];
 			}
@@ -79,28 +78,29 @@ void insertaAlumno(tListaAlumnos & listaAlumnos, string NIF, const tExamen & exa
 		cout << "Lista de alumnos llena, no puede insertarse nuevo alumno a la lista de alumnos" << endl;
 }
 
+
 void carga (tListaAlumnos & listaAlumnos, ifstream & archivo){
-	tExamen examen;	
+	tExamen examen;
 	string NIF;
 	string fecha;
 	double nota;
 	int pos;
-	
+
 	archivo >> NIF;
 	while(NIF != CENTINELA && listaAlumnos.contador < MAXALUMNOS){
 			archivo >> fecha;
 			archivo >> nota;
-			
+
 		creaExamen(fecha, nota, examen);
 
 			if(!busca(listaAlumnos, NIF, pos))
 				insertaAlumno(listaAlumnos, NIF, examen, pos);
 			else
 				insertarNota(listaAlumnos.alumnos[pos] ->listaExamenes, examen);
-		
+
 			archivo>> NIF;
 	}
-	
+
 }
 
 void destruye(tListaAlumnos & listaAlumnos){

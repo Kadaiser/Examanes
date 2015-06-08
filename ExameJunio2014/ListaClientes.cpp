@@ -1,14 +1,8 @@
-#include<iostream>
-#include<fstream>
-#include<string>
-
-using namespace std;
-
 #include "ListaClientes.h"
 
 void inicializar(tListaClientes & listaClientes){
-	for(int i = 0; i < listaClientes.contador; i++)
-	listaClientes.clientes[i] = nullptr;
+	for(int i = 0; i < MAXCLIENTES; i++)
+	listaClientes.clientes[i] = new tCliente;
 
 	listaClientes.contador = 0;
 }
@@ -45,12 +39,10 @@ double totalVentas(const tListaClientes & listaClientes){
 }
 
 
-bool insertaCliente(tListaClientes & listaClientes, string NIF, const tProducto & producto){
+bool insertaCliente(tListaClientes & listaClientes, string NIF, const tProducto & producto, int pos){
 	bool ok = false;
-	int pos;
-	if(listaClientes.contador < MAXCLIENTES){
 
-		if(!encuentra(listaClientes, NIF, pos)){
+	if(listaClientes.contador < MAXCLIENTES){
 
 			tCliente cliente;
 			cliente.NIF = NIF;
@@ -63,12 +55,14 @@ bool insertaCliente(tListaClientes & listaClientes, string NIF, const tProducto 
 		listaClientes.clientes[pos] = new tCliente (cliente);										//Se inclulle al cliente generado en la poscion pos
 
 		listaClientes.clientes[pos] -> listaProductos.productos[0] = producto; 	//se inclulle el producto en la lista de productos del cliente;
+		listaClientes.clientes[pos] -> listaProductos.contador++;
+
+		listaClientes.contador++;
 		ok =true;
-		}
 	}
-	else{
+	else
 		cout << "Error lista de clientes llena" << endl;
-	}
+
 	return ok;
 }
 
@@ -87,16 +81,13 @@ void carga(tListaClientes & listaClientes, ifstream& archivo){
 	archivo >> producto.unidades;
 
 	if(!encuentra(listaClientes, NIF, pos))
-			insertaCliente(listaClientes, NIF, producto);
+			insertaCliente(listaClientes, NIF, producto, pos);
 	else
 		insertaProd(listaClientes.clientes[pos]->listaProductos, producto);
-
-	listaClientes.contador++;
 
 	archivo >> NIF;
 	}
 }
-
 
 
 void muestra(const tListaClientes & listaClientes){
@@ -104,9 +95,8 @@ void muestra(const tListaClientes & listaClientes){
 		cout << "Cliente: " << listaClientes.clientes[i]->NIF;
 		muestra(listaClientes.clientes[i]->listaProductos);
 		cout <<"---------------------------------" << endl;
-		
-			system("pause");	//Se usa para comprobar usuario a usuario la carga, puede borrarse (ha de borrarse antes de entregar)
-		}
+
+			}
 	cout << "Ventas totales: " << totalVentas(listaClientes) << endl;
 	system("pause");
 }
@@ -115,6 +105,6 @@ void muestra(const tListaClientes & listaClientes){
 void destruye(tListaClientes & listaClientes){
 	for(int i = 0; i < listaClientes.contador; i++){
 	destruye(listaClientes.clientes[i]->listaProductos);
-	delete[i] listaClientes.clientes[i];
+	delete listaClientes.clientes[i];
 	}
 }

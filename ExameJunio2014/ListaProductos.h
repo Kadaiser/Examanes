@@ -1,6 +1,10 @@
 #ifndef LISTAPRODUCTOS_H
 #define	LISTAPRODUCTOS_H
 
+#include<fstream>
+#include<iostream>
+#include<string>
+
 #include "Productos.h"
 
 const int MAXPRODUCTOS = 50;

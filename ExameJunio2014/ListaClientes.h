@@ -1,6 +1,10 @@
 #ifndef LISTACLIENTES_H
 #define	LISTACLIENTES_H
 
+#include<fstream>
+#include<iostream>
+#include<string>
+
 #include "ListaProductos.h"
 
 const int MAXCLIENTES = 100;
