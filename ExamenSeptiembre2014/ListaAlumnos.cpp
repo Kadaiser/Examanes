@@ -3,7 +3,7 @@
 
 void inicializar(tListaAlumnos & listaAlumnos){
 	for(int i = 0; i < MAXALUMNOS; i++)
-		listaAlumnos.alumnos[i] = new tAlumno;
+		listaAlumnos.alumnos[i] = nullptr;
 	listaAlumnos.contador = 0;
 }
 
@@ -36,9 +36,8 @@ bool busca(const tListaAlumnos & listaAlumnos, string NIF, int & pos){
 	int fin = listaAlumnos.contador - 1, ini = 0, mitad;
 	bool encontrado = false;
 
-	while(!encontrado && fin <= ini){
+	while(!encontrado && ini <= fin){
 		mitad = (ini + fin) / 2;
-
 		if(NIF < listaAlumnos.alumnos[mitad]-> NIF){
 			fin = mitad - 1;
 		}
@@ -94,9 +93,9 @@ void carga (tListaAlumnos & listaAlumnos, ifstream & archivo){
 			archivo >> nota;
 
 		creaExamen(fecha, nota, examen);
-
-			if(!busca(listaAlumnos, NIF, pos))
+			if(!busca(listaAlumnos, NIF, pos)){
 				insertaAlumno(listaAlumnos, NIF, examen, pos);
+			}
 			else
 				insertarNota(listaAlumnos.alumnos[pos] ->listaExamenes, examen);
 
