@@ -19,13 +19,13 @@ void inicializar(tListaExamenes & listaExamenes);
 void estadisticasNotas (const tListaExamenes & listaExamenes, tArrayCalificaciones & arrayCalificaciones);
 
 /**
-* Dada una lista de exámenes y una posición muestra en pantalla los exámenes a partir de esa posición. 
-* Se implementará de forma recursiva.
+* Dada una lista de exï¿½menes y una posiciï¿½n muestra en pantalla los exï¿½menes a partir de esa posiciï¿½n.
+* Se implementarï¿½ de forma recursiva.
 */
 void muestraLista(const tListaExamenes & listaExamenes, int pos);
 
 /**
-* Muestra en pantalla una lista de exámenes junto a sus estadísticas:
+* Muestra en pantalla una lista de exï¿½menes junto a sus estadï¿½sticas:
 */
 void muestra(const tListaExamenes & listaExamenes);
 

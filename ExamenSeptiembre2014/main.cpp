@@ -6,9 +6,9 @@ int main(){
 	tListaAlumnos listaAlumnos;
 	inicializar(listaAlumnos);
 	ifstream archivo;
-	
+
 	archivo.open(FICHERO);
-	
+
 	if(archivo.is_open()){
 		carga(listaAlumnos, archivo);
 		muestra(listaAlumnos);

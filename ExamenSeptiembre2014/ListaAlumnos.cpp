@@ -11,8 +11,22 @@ void inicializar(tListaAlumnos & listaAlumnos){
 
 void totalEstadisticas(const tListaAlumnos & listaAlumnos, tArrayCalificacionesAlumnos & arrayCalificacionesAlumnos){
 
-	arrayCalificacionesAlumnos[5] = {0}; //inicializar el array
+//	arrayCalificacionesAlumnos[5] = {0}; //inicializar el array
 
+	for(int j = 0; j <5; j++)
+	arrayCalificacionesAlumnos[j] = 0; //inicializar el array
+
+	for(int i = 0; i < listaAlumnos.contador; i++){
+		for(int k = 0; k < listaAlumnos.alumnos[i]->listaExamenes.contador; k++){
+			double nota = listaAlumnos.alumnos[i]->listaExamenes.examenes[k].nota;
+
+			if(nota < 5) arrayCalificacionesAlumnos[0]++;
+			else if(nota >=5 && nota < 6) arrayCalificacionesAlumnos[1]++;
+			else if(nota >=6 && nota < 7) arrayCalificacionesAlumnos[2]++;
+			else if(nota >=7 && nota < 9) arrayCalificacionesAlumnos[3]++;
+			else arrayCalificacionesAlumnos[4]++;
+		}
+	}
 }
 
 
@@ -28,7 +42,7 @@ void muestra(const tListaAlumnos & listaAlumnos){
 	cout << "----------------------------------------" << endl;
 	totalEstadisticas(listaAlumnos, arrayCalificacionesAlumnos);
 	cout << "Total : ";
-		cout << "SS: " << arrayCalificacionesAlumnos[0] << "AP: " << arrayCalificacionesAlumnos[1] << "B: " << arrayCalificacionesAlumnos[2] << "NT: " << arrayCalificacionesAlumnos[3] << "SB: " << arrayCalificacionesAlumnos[4] << endl;
+		cout << "SS:" << arrayCalificacionesAlumnos[0] << "  AP: " << arrayCalificacionesAlumnos[1] << "  B:" << arrayCalificacionesAlumnos[2] << "  NT:" << arrayCalificacionesAlumnos[3] << " SB:" << arrayCalificacionesAlumnos[4] << endl;
 
 }
 

@@ -12,8 +12,8 @@ typedef enum {SS, AP, B, NT, SB} tCalificacion;
 
 typedef struct{
 	string fecha;
-	tCalificacion calificacion;
 	double nota;
+	tCalificacion calificacion;
 }tExamen;
 
 void muestra(const tExamen & examen);
