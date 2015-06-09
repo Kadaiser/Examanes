@@ -17,23 +17,24 @@ typedef struct{
 }tJornada;
 
 typedef struct{
-	int numeroEmpleado;
+	int codigo;
 	string nombre;
 	tDepartemento departamento;
-	int* companieros;
 	tJornada jornada;
 }tEmpleado;
 
-void inicializar(tEmpleado & empleado);
+void muestraEmpleado(const tEmpleado & empleado);
 
-void crearEmpleado(int numeroEmpleado, string nombre, int numDepartamento);
-
-void destruir(tEmpleado & empleado);
+void crearEmpleado(tEmpleado& empleado, int codigo, string nombre, int numDepartamento);
 
 void insertarJornada(tEmpleado & empleado, tJornada & jornada);
 
 tDepartemento intToDepartamento(int numDepartamento);
 
-string departamentoToString(const tDepartemento & departamento);
+int departamentoToInt(const tDepartemento & departamento);
+
+bool perteneceDepartamento(const tEmpleado & empleado, int numDepartamento);
+
+void mostrarDepartamentos();
 
 #endif
