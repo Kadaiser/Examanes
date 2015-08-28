@@ -28,4 +28,4 @@ void mostrar(const tPrograma & programa);
 
 string mostrarFecha(tFecha fecha);
 
-#endif // !PROGRAMA_H
+#endif
