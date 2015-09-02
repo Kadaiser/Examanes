@@ -20,7 +20,7 @@ void crear(tListaGrabaciones & listaGrabaciones);
 
 bool solapan(const tGrabacion & grabacion1, const tGrabacion & grabacion2);
 
-bool insertar(tListaGrabaciones & listaGrabaciones, const tGrabacion & grabacion);
+bool insertar(tListaGrabaciones & listaGrabaciones, const tProgramaPtr & programa);
 
 void mostrar(tListaGrabaciones & listaGrabaciones, int posicion);
 

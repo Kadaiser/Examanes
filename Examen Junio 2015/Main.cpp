@@ -17,10 +17,9 @@ int main(){
 			switch (opcion){
 
 			case 1:
-				tGrabacion grabacion;
-				grabacion.programa = selecPrograma(listaProgramas);
-				grabacion.programa = false;
-				if (insertar(listaGrabaciones, grabacion))
+			tProgramaPtr programa;
+			programa = selecPrograma(listaProgramas);
+			if (insertar(listaGrabaciones, programa))
 					cout << "Nueva grabacion inserada" << endl;
 				else
 					cout << "Hubo un fallo al insertar la grabacion" << endl;
