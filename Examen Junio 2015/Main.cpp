@@ -17,9 +17,10 @@ int main(){
 			switch (opcion){
 
 			case 1:
-				tProgramaPtr programa;
-				programa = selecPrograma(listaProgramas);
-				if (insertar(listaGrabaciones, programa))
+				tGrabacion grabacion;
+				grabacion.programa = selecPrograma(listaProgramas);
+				grabacion.programa = false;
+				if (insertar(listaGrabaciones, grabacion))
 					cout << "Nueva grabacion inserada" << endl;
 				else
 					cout << "Hubo un fallo al insertar la grabacion" << endl;
@@ -47,7 +48,6 @@ int main(){
 }
 
 int menu(){
-	system("cls");
 	int opcion;
 	cout << "1- Programar una grabacion nueva" << endl;
 	cout << "2- Mostrar grabaciones programas" << endl;
